@@ -1,0 +1,68 @@
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<h1 id="plano-de-trabalho">Plano de Trabalho</h1>
+<ol type="1">
+<li>Montar o relatório apresentando as inconsistências experimentais
+identificadas:</li>
+</ol>
+<ul>
+<li>Na geração de instâncias, de rotas conflitantes, com set differences
+entre os meus conjuntos e o do joão;</li>
+<li>Na implementação da restrição de exclusão de operações mutuas em
+rotas conflitantes (restrições 446_1 e 446_2);</li>
+</ul>
+<ol start="2" type="1">
+<li><p>Dizer que mesmo sem equivalência comparativa (por conta dos
+poliedros distintos), a nossa implementação apresentou resultados de FO
+melhores do que a implementação do João, mesmo com as inconsistências
+experimentais identificadas.</p></li>
+<li><p>Apresentar inconsistências no balanceamento de estoques (baseado
+no balanceamento futuro) que deixa o estoque do período 1 desvinculado
+ao estoque inicial.</p></li>
+<li><p>Apresentar inconsistências da restrição de limitação do
+escoamento, a <span
+class="math inline">∑<sub><em>r</em> ∈ <em>R</em><sub><em>y</em></sub>[<em>s</em>]</sub>(<em>c</em><sub><em>y</em></sub><sup><em>r</em></sup>[<em>r</em>] <em>y</em><sub><em>r</em></sub>[<em>r</em>, <em>p</em>, <em>t</em>]) ≤ <em>e</em>[<em>s</em>, <em>p</em>, <em>t</em>] ∀<em>s</em> ∈ <em>S</em>, <em>p</em> ∈ <em>P</em>, <em>t</em> ∈ <em>T</em></span>,
+que não limita o escoamento y ao estoque do período anterior, mas sim,
+ao do periodo corrente que é modificado pela entrada de minérios por
+<span
+class="math inline"><em>r</em><sub><em>x</em></sub>[<em>s</em>]</span></p></li>
+<li><p>Apresentar o argumento da impossibilidade comparativa entre as
+implementações, devido às inconsistências experimentais identificadas
+que indelevelmente modificam o poliedro do espaço de soluções entre uma
+implementação e outra, o que pode acarretar nas diferenças de resultados
+identificadas.</p></li>
+<li><p>Ainda assim, apresentar os resultados de 5 implementações fáceis
+realizadas.</p></li>
+<li><p>Agora, o que explica essas melhorias? Porque ao reproduzir o
+experimento do João com a retirada da inconsistência experimental, ainda
+assim nossa solução apresentou resultados melhores. Portanto, o poliedro
+está diferente, mas como caracterizar essas diferenças? Isso já entra no
+âmbito especulativo, é muito difícil, porque é associado à necessidade
+de provar um fato negativo, como, por exemplo, outra inconsistência de
+restrições ou de modelo do trabalho do João, que não conseguimos
+identificar de imediato. Entretanto, a verificação do nosso modelo é
+mais assertiva, pois, a equivalência matemática em conformidade às
+notações da dissertação é imediata, o JuMP impõe a notação algébrica,
+basicamente a mesma da formulação matemática.</p></li>
+</ol>
+<ul>
+<li>Isso vêm na esteira de que os indicios sugerem que essa diferença de
+resultados pode ser explicada por outras inconsistências experimentais
+ainda não identificadas, mas, que podem ser sementes de trabalhos
+futuros.</li>
+</ul>
+<ol start="8" type="1">
+<li>Com isso concluimos que nossos resultados estão consistentes, que
+obtivemos melhorias e avançamos o estado da arte interno das pesquisas
+feitas pelo grupo. A identificação de uma inconsistência e sua correção
+são melhorias significativas.</li>
+</ol>
