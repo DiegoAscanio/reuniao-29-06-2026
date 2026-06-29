@@ -32,7 +32,7 @@ pre {
 
 /* O código dentro do bloco <pre> */
 pre code {
-    font-size: 0.65em !important;   /* tamanho legível (0.65em do tamanho base) */
+    font-size: 0.7em !important;   /* tamanho legível (0.65em do tamanho base) */
     line-height: 1.15 !important;   /* mesmo valor do <pre> */
     display: block;                 /* ocupa a largura total */
     font-family: 'Courier New', monospace; /* (opcional) fonte monoespaçada */
@@ -553,7 +553,7 @@ Eu corrigi isso na minha implementação, mas, considerei mais elegante usar o e
 Minha restrição de balanceamento de estoques ficou assim:
 
 $$
-e_{s, p, t} = e_{s, p, t - 1} + \sum_{\text{rx} \in R_{x}^{s}} c^{\text{rx}} x_{\text{rx}, p, t} + \sum_{\text{ry} \in R_{y}^{s}} c^{\text{ry}} y_{\text{ry}, p, t} \qquad \forall s \in S, \forall p \in P, \forall t \in T
+e_{s, p, t} = e_{s, p, t - 1} + \sum_{\text{rx} \in R_{x}^{s}} c^{\text{rx}} x_{\text{rx}, p, t} - \sum_{\text{ry} \in R_{y}^{s}} c^{\text{ry}} y_{\text{ry}, p, t} \qquad \forall s \in S, \forall p \in P, \forall t \in T
 $$
 
 ---
@@ -574,9 +574,9 @@ Como eu não tratei o estoque inicial como uma variável, mas sim como uma const
     # C_24 (original C_44): Balanceamento de estoque (referência no início do
     # período).
     # Substitui as antigas C_12 e C_35/C_45. Para cada subárea s, produto p
-    # e período t, o estoque corrente e[s,p,t] (medido no início de t) deve
-    # ser igual ao estoque do período anterior mais a entrada via rotas Rx
-    # menos a saída via rotas Ry. A função _previous retorna e_0 para t=1.
+    # e período t, o estoque corrente e[s,p,t] deve ser igual ao estoque 
+    # do período anterior mais a entrada via rotas Rx menos a saída 
+    # via rotas Ry. A função _previous retorna e_0 para t=1.
     # Essa formulação é mais elegante e evita a necessidade de variáveis
     # auxiliares para o fim do período.
     # ========================================================================
@@ -613,7 +613,7 @@ $$
     e_{p, t}^{s} \geq \sum_{r \in R_{y}^{s}} c^{r} y_{r, p, t} \qquad \forall s \in S, \forall p \in P, \forall t \in T
 $$
 
-Entretanto, como já vimos, o estoque $e_{p, t}^{s}$ é também modificado pela entrada de produtos na subárea $s$ no período $t$ — pela restrição de balanceamento — então, o solver pode considerar para o cálculo de $y_{r, p, t}$ o estoque $e_{p, t}^{s}$ modificada pela entrada presente, o que não coibe o pipe! Portanto, y_{r, p, t} tem que ser limitado pelo estoque anterior, para aí sim, impedir o pipe. A restrição correta seria:
+Entretanto, como já vimos, o estoque $e_{p, t}^{s}$ é também modificado pela entrada de produtos na subárea $s$ no período $t$ — pela restrição de balanceamento — então, o solver pode considerar para o cálculo de $y_{r, p, t}$ o estoque $e_{p, t}^{s}$ modificada pela entrada presente, o que não coibe o pipe! Portanto, $y_{r, p, t}$ tem que ser limitado pelo estoque anterior, para aí sim, impedir o pipe. A restrição correta seria:
 
 $$
     e_{p, t - 1}^{s} \geq \sum_{r \in R_{y}^{s}} c^{r} y_{r, p, t} \qquad \forall s \in S, \forall p \in P, \forall t \in T
@@ -754,7 +754,7 @@ th, td {
 
 **Principais Observações:**
 * **Escalabilidade Consistente:** Na Instância 01, o modelo descaracterizado demorou mais de meia hora (2.003s) para encontrar o ótimo. A nossa implementação cravou a prova de otimalidade na mesma instância em ~20 minutos (1.195s).
-* **Robustez de Execução:** Em 4 das 5 instâncias médias, a formulação blindada obteve reduções de tempo significativas, variando de 24% a 63%. A variação de tempo na instância 04 reflete a natural reestruturação da árvore de Branch-and-Bound promovida pelos novos cortes.
+* **Robustez de Execução:** Em 4 das 5 instâncias médias, a formulação blindada obteve reduções de tempo significativas, variando de 24% a 63%.
 * **Prova de Otimalidade (Gap):** Em todas as execuções, o solver encontrou soluções fisicamente viáveis, estritamente melhores em $Z$ e provou matematicamente o ótimo global (Gap $\le$ 0.01%).
 
 ---
